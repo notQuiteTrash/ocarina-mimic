@@ -15,6 +15,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+# Camera controls for controller
 func _process(delta: float) -> void:
 	var look_input := Input.get_vector("view_right", "view_left", "view_down", "view_up")
 	look_input = turn_rate * look_input * delta
@@ -25,7 +26,8 @@ func _process(delta: float) -> void:
 	rotation_degrees.x += look_input.y
 	rotation_degrees.y += look_input.x
 	rotation_degrees.x = clampf(rotation_degrees.x, -80, 45)
-	
+
+# Camera controls for the mouse
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_input = -event.relative * mouse_sens
@@ -34,5 +36,6 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+# Makes the camera follow the player
 func _physics_process(delta: float) -> void:
-	camera.position += player.position
+	position = player.position + Vector3(0,1.5,0)
