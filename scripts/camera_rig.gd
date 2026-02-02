@@ -3,6 +3,8 @@ extends SpringArm3D
 @onready var camera : Camera3D = $Camera3D
 # The above is "Syntactic Sugar", and it could also be written as:
 # @onready var camera : Camera3D = get_node("Camera3D")
+@onready var player: Node3D = get_parent()
+
 @export var turn_rate := 250.0
 @export var mouse_sens := .30
 var mouse_input : Vector2 = Vector2()
@@ -31,3 +33,6 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _physics_process(delta: float) -> void:
+	camera.position += player.position
