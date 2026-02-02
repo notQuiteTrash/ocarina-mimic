@@ -8,8 +8,10 @@ extends SpringArm3D
 @export var turn_rate := 250.0
 @export var mouse_sens := .30
 var mouse_input : Vector2 = Vector2()
+var cam_rig_height : float = position.y
 
 # Called when the node enters the scene tree for the first time.
+# This overrides the camera with the springarm z position
 func _ready() -> void:
 	spring_length = camera.position.z
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -38,4 +40,4 @@ func _input(event: InputEvent) -> void:
 
 # Makes the camera follow the player
 func _physics_process(delta: float) -> void:
-	position = player.position + Vector3(0,1.5,0)
+	position = player.position + Vector3(0, cam_rig_height, 0)

@@ -13,11 +13,11 @@ radius = 0.2
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1219735895]
-transform = Transform3D(0.9999783, -0.006102978, -0.0025043138, 0.0061012623, 0.99998116, -0.00069189764, 0.0025084894, 0.00067660253, 0.9999966, 0, 1.0635278, 0)
+transform = Transform3D(0.9999783, -0.006102978, -0.0025043138, 0.0061012623, 0.99998116, -0.00069189764, 0.0025084894, 0.00067660253, 0.9999966, 0, 1.0635281, 0)
 shape = SubResource("CapsuleShape3D_qhqgy")
 
 [node name="CameraRig" type="SpringArm3D" parent="." unique_id=781582307]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3883102, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 top_level = true
 shape = SubResource("SphereShape3D_dqkch")
 spring_length = 2.0
@@ -27,7 +27,7 @@ script = ExtResource("2_qhqgy")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.2)
 
 [node name="Mesh" parent="." unique_id=2067544585 instance=ExtResource("2_g2els")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.010729492, 0)
 
 [node name="Skeleton3D" parent="Mesh/HeroRig_export" parent_id_path=PackedInt32Array(2067544585, 97955014) index="0" unique_id=1818377787]
 bones/0/position = Vector3(0.019266011, 1.0754282, 1.1906231e-05)
