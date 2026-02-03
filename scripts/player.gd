@@ -1,10 +1,12 @@
 extends CharacterBody3D 
-@onready var anim_player: AnimationPlayer = $Mesh/AnimationPlayer
+@onready var anim_player : AnimationPlayer = $Mesh/AnimationPlayer
+@onready var anim_tree : AnimationTree = $AnimationTree
+var prev_lean := 0.0
 
 @export var speed : float = 5.0
 # You type the above line like this as well: @export var speed:= 5.0
 # This is called Type Inference
-const JUMP_VELOCITY = 4.5
+const JUMP_VELOCITY = 9
 @onready var camera : Node3D = $CameraRig/Camera3D
 
 func get_boosted_speed(boost_mult:float) -> float:
@@ -37,16 +39,21 @@ func _physics_process(delta: float) -> void:
 
 	var current_speed := velocity.length()
 	const RUN_SPEED := 4.0
-	const BLEND_SPEED := 0.2
 	
-	if current_speed > RUN_SPEED :
-		anim_player.play("freehand_run", BLEND_SPEED) 
+	if not is_on_floor() :
+		anim_tree.set("parameters/movement/transition_request", "fall")
+	elif current_speed > RUN_SPEED :
+		anim_tree.set("parameters/movement/transition_request", "run")
+		var lean := direction.dot(global_basis.x)
+		prev_lean = lerpf(prev_lean, lean, 0.3)
+		anim_tree.set("parameters/run_lean/add_amount", prev_lean)
 	elif current_speed > 0.0 :
-		anim_player.play("freehand_walk", BLEND_SPEED, lerp(0.5, 1.75, current_speed / RUN_SPEED))
+		anim_tree.set("parameters/movement/transition_request", "walk")
+		var walk_speed := lerpf(0.5, 1.75, current_speed / RUN_SPEED)
+		anim_tree.set("parameters/walk_speed/scale", walk_speed)
 	else: 
-		anim_player.play("freehand_idle")
+		anim_tree.set("parameters/movement/transition_request", "idle") 
 	
-		
 func turn_to(direction: Vector3) -> void:
 	if direction.length() > 0 :
 		var yaw := atan2(-direction.x,-direction.z)
